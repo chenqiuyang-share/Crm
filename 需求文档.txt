@@ -1,0 +1,43 @@
+
+
+登录:
+验证账号和密码:
+执行sql语句 User user = SELECT * FROM tbl_user WHERE loginAct=? AND loginPwd=?
+user为null,说明账号密码错误
+user不为null,说明z账号密码正确，继续向下验证其他字段信息
+从user中get到
+    expireTime验证失效时间
+    lockState验证锁定状态
+    allowIps验证浏览器中的ip地址是否有效
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/";
+%>
+<base href="<%=basePath%>">
+
+login.jsp
+自动获得焦点
+页面加载后，文本框内容清空
+页面加载完毕后，自动获得用户名文本框的焦点
+为登录按钮绑定事件，执行登录操作
+为当前窗口也绑定敲键盘事件
+普通的自定义的方法一定要写在$(function)的外面
+/* 登录操作
+ * 1，验证账号密码不能为空
+ * 2，取得账号密码
+ * 3，将文本中的左右空格去掉，使用$.trim(文本)
+*/
+到这一步说明账号密码都填写了，到数据表中去验证
+使用ajax
+$.ajax({
+        url:"",
+        data:{},
+        type:"",
+        dataType:"json",
+        success:function (data) {
+
+        }
+})
+
+
