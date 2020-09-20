@@ -25,7 +25,9 @@ public class UserController extends HttpServlet {
          * 注意是完全匹配的部分，*的部分不包括。
          */
         String path = request.getServletPath();
-        if("settings/user/login.do".equals(path)){
+        System.out.println("path==" + path);
+        if("/settings/user/login.do".equals(path)){
+            System.out.println("进入到login方法中");
             login(request,response);
         }else if("settings/user/xxx.do".equals(path)){
             //xxx(request,response);
@@ -40,14 +42,14 @@ public class UserController extends HttpServlet {
         loginPwd = MD5Util.getMD5(loginPwd);
         System.out.println(loginPwd);
         //接受浏览器端的ip地址
-        String remoteAddr = request.getRemoteAddr();
-        System.out.println("ip地址=====" + remoteAddr);
+        String ip = request.getRemoteAddr();
+        System.out.println("ip地址=====" + ip);
         //未来业务层开发，统一使用代理类形态的接口对象,走事物,非常重要
         UserService userService = (UserService) ServiceFactory.getService(new UserServiceImpl());
 
         try{
             //返回一个User对象
-            User user = userService.login(loginAct,loginPwd);
+            User user = userService.login(loginAct,loginPwd,ip);
             request.getSession().setAttribute("user",user);
             //如果程序执行到此处，说明业务层没有为controller抛出任何异常
             //表示登录成功，为前台提供下面的信息
